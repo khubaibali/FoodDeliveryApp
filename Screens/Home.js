@@ -373,9 +373,68 @@ const Home =()=>{
          </View>
         )
     }
+
+    function renderMainCategoires (){
+
+    const renderItem=({item})=>{
+        return(
+            <TouchableOpacity
+            style={{padding:SIZES.padding,
+                    paddingBottom:SIZES.padding*2,
+                    backgroundColor:COLORS.primary,
+                    borderRadius:SIZES.radius,
+                    alignItems:'center',
+                    justifyContent:'center',
+                    marginRight:SIZES.padding,
+                    ...styles.shadow
+            }}
+            >
+                <View style={{
+                    width:50,
+                    height:50,
+                    justifyContent:'center',
+                    alignItems:'center',
+                    backgroundColor:COLORS.white,
+                    borderRadius:25
+                }}>
+                    <Image
+                    source={item.icon}
+                    resizeMode='contain'
+                    style={{height:30,
+                            width:30,
+                            }}
+                    />
+                </View>
+                    <Text style={{
+                        marginTop:SIZES.padding,
+                        color:COLORS.white,
+                        ...FONTS.body5
+                    }}>
+                        {item.name}
+                    </Text>
+            </TouchableOpacity>
+        )   
+    }
+        return (
+            <View style={{padding :SIZES.padding * 2}}>
+                <Text style={{...FONTS.h1}}>Main</Text>
+                <Text style={{...FONTS.h1}}>categories</Text>
+
+                <FlatList 
+                data={categories}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                keyExtractor={item => `${item.id}`}
+                renderItem={renderItem}
+                contentContainerStyle={{paddingVertical: SIZES.padding*2}}
+                />
+            </View>
+        )
+    }
     return (
         <SafeAreaView style={styles.container}>
             {renderHeader()}
+            {renderMainCategoires()}
         </SafeAreaView>
     )
 }
