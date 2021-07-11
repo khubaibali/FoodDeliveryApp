@@ -16,6 +16,7 @@ const Tab = createBottomTabNavigator();
 
 const TabBarCustomButton = ({ accessibilityState, children, onPress ,...props}) => {
     console.log('---------------',props)
+    console.log('----',children)
     var isSelected = accessibilityState.selected
 
     if (isSelected) {
