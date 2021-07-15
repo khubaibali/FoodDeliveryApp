@@ -8,9 +8,9 @@ import {
     FlatList,
     StyleSheet
 } from 'react-native'
-import {COLORS,icons,images,SIZES,FONTS} from '../constants'
+import { COLORS, icons, images, SIZES, FONTS } from '../constants'
 
-const Home =()=>{
+const Home = () => {
 
     //DUMMY DATA
     const initialCurrentLocation = {
@@ -335,141 +335,205 @@ const Home =()=>{
     const [restaurants, setRestaurants] = React.useState(restaurantData)
     const [currentLocation, setCurrentLocation] = React.useState(initialCurrentLocation)
 
-    const onSelectCategory=(category)=>{
+    const onSelectCategory = (category) => {
         //fiters resturant
-        const resturant = restaurantData.filter((a)=> a.categories.includes(category.id))
+        const resturant = restaurantData.filter((a) => a.categories.includes(category.id))
         // console.log('asdfas',resturant)
         setRestaurants(resturant)
         setSelectedCategory(category)
     }
+    const getCategoryNameById=(catId)=>{
+        let temp= categoryData.filter((c)=> catId===c.id && c.name)
+        return temp[0].name
+       
+    }
 
-    const renderHeader=()=>{
-        return(
-            <View style={{flexDirection:'row',height:50}}>
-            <TouchableOpacity
-            styles={{
-                width:50,
-                paddingLeft:SIZES*2,
-                justifyContent:'center'
-            }}
-            >
-                 <Image
-                 source={icons.nearby}
-                 resizeMode='contain'
-                 style={{width:30, height:'100%'}}
-                 />
-            </TouchableOpacity>
-            <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
-                <View style={{
-                    width:'70%',
-                    height:'100%',
-                    backgroundColor:COLORS.lightGray3,
-                    alignItems:'center',
-                    justifyContent:'center',
-                    borderRadius:SIZES.radius
-                }}>
-                    <Text style={{...FONTS.h3}}>{currentLocation.streetName}</Text>
+    const renderHeader = () => {
+        return (
+            <View style={{ flexDirection: 'row', height: 50 }}>
+                <TouchableOpacity
+                    styles={{
+                        width: 50,
+                        paddingLeft: SIZES * 2,
+                        justifyContent: 'center'
+                    }}
+                >
+                    <Image
+                        source={icons.nearby}
+                        resizeMode='contain'
+                        style={{ width: 30, height: '100%' }}
+                    />
+                </TouchableOpacity>
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                    <View style={{
+                        width: '70%',
+                        height: '100%',
+                        backgroundColor: COLORS.lightGray3,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        borderRadius: SIZES.radius
+                    }}>
+                        <Text style={{ ...FONTS.h3 }}>{currentLocation.streetName}</Text>
+                    </View>
                 </View>
+                <TouchableOpacity
+                    styles={{
+                        width: 50,
+                        paddingLeft: SIZES * 2,
+                        justifyContent: 'center'
+                    }}
+                >
+                    <Image source={icons.basket}
+                        resizeMode='contain'
+                        style={{ width: 30, height: '100%' }}
+                    />
+                </TouchableOpacity>
             </View>
-            <TouchableOpacity
-            styles={{
-                width:50,
-                paddingLeft:SIZES*2,
-                justifyContent:'center'
-            }}
-            >
-                <Image source={icons.basket}
-                resizeMode='contain'
-                style={{width:30,height:'100%'}}
-                />
-            </TouchableOpacity>
-         </View>
         )
     }
 
-    function renderMainCategoires (){
+    function renderMainCategoires() {
 
-    const renderItem=({item})=>{
-        return(
-            <TouchableOpacity
-            style={{padding:SIZES.padding,
-                    paddingBottom:SIZES.padding*2,
-                    backgroundColor:selectedCategory?.id==item.id?COLORS.primary:COLORS.white,
-                    borderRadius:SIZES.radius,
-                    alignItems:'center',
-                    justifyContent:'center',
-                    marginRight:SIZES.padding,
-                    ...styles.shadow
-            }}
-            onPress={()=>onSelectCategory(item)}
-            >
-                <View style={{
-                    width:50,
-                    height:50,
-                    justifyContent:'center',
-                    alignItems:'center',
-                    backgroundColor:COLORS.white,
-                    borderRadius:25
-                }}>
-                    <Image
-                    source={item.icon}
-                    resizeMode='contain'
-                    style={{height:30,
-                            width:30,
+        const renderItem = ({ item }) => {
+            return (
+                <TouchableOpacity
+                    style={{
+                        padding: SIZES.padding,
+                        paddingBottom: SIZES.padding * 2,
+                        backgroundColor: selectedCategory?.id == item.id ? COLORS.primary : COLORS.white,
+                        borderRadius: SIZES.radius,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        marginRight: SIZES.padding,
+                        ...styles.shadow
+                    }}
+                    onPress={() => onSelectCategory(item)}
+                >
+                    <View style={{
+                        width: 50,
+                        height: 50,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        backgroundColor: COLORS.white,
+                        borderRadius: 25
+                    }}>
+                        <Image
+                            source={item.icon}
+                            resizeMode='contain'
+                            style={{
+                                height: 30,
+                                width: 30,
                             }}
-                    />
-                </View>
+                        />
+                    </View>
                     <Text style={{
-                        marginTop:SIZES.padding,
-                        color:COLORS.black,
+                        marginTop: SIZES.padding,
+                        color: COLORS.black,
                         ...FONTS.body5
                     }}>
                         {item.name}
                     </Text>
-                    
-            </TouchableOpacity>
-        )   
-    }
-        return (
-            <View style={{padding :SIZES.padding * 2}}>
-                <Text style={{...FONTS.h1}}>Main</Text>
-                <Text style={{...FONTS.h1}}>categories</Text>
 
-                <FlatList 
-                data={categories}
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                keyExtractor={item => `${item.id}`}
-                renderItem={renderItem}
-                contentContainerStyle={{paddingVertical: SIZES.padding*2}}
+                </TouchableOpacity>
+            )
+        }
+        return (
+            <View style={{ padding: SIZES.padding * 2 }}>
+                <Text style={{ ...FONTS.h1 }}>Main</Text>
+                <Text style={{ ...FONTS.h1 }}>categories</Text>
+
+                <FlatList
+                    data={categories}
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    keyExtractor={item => `${item.id}`}
+                    renderItem={renderItem}
+                    contentContainerStyle={{ paddingVertical: SIZES.padding * 2 }}
                 />
             </View>
         )
     }
 
-    function renderRestaurantList (){
-        const renderItem=({item})=>{
-            <View>
-                <Image 
-                source={item.photo}
-                resizeMode="cover"
-                style={{
-                height:200,
-                width:'100%',
-                borderRadius:SIZES.radius
-                }}
-                />
-            </View>
+    const renderRestaurantList = () => {
+        const renderItem = ({ item }) => {
+
+            return (
+                <TouchableOpacity
+                    style={{ marginBottom: SIZES.padding * 2 }}
+                >
+                    <View>
+                        <View>
+                            <Image
+                                source={item.photo}
+                                resizeMode="cover"
+                                style={{
+                                    height: 200,
+                                    width: '100%',
+                                    borderRadius: SIZES.radius,
+                                }}
+                            />
+                        </View>
+                        <View style={{
+                            position: 'absolute', bottom: 0, height: 50, width: SIZES.width * 0.3,
+                            backgroundColor: COLORS.white,
+                            alignItems: 'center', justifyContent: 'center',
+                            borderTopRightRadius: SIZES.radius, borderBottomLeftRadius: SIZES.radius,
+                            ...styles.shadow,
+                        }}>
+                            <Text style={{ ...FONTS.h4 }}>{item.duration}</Text>
+                        </View>
+                    </View>
+                    <View>
+                        <Text style={{ ...FONTS.body2 }}>{item.name}</Text>
+                    </View>
+                    <View style={{flexDirection:'row',}}>
+                        <Image
+                        source={icons.star}
+                        style={{marginRight:10,height:20,width:20,tintColor:COLORS.primary}}
+                        />
+                       <Text style={{...FONTS.body3}}>{item.rating}</Text> 
+                       {/* {CATEGORIES } */}
+                       <View style={{flexDirection:'row' ,marginLeft:10}}>                       
+                        {
+                            item.categories.map((catId)=>{
+                                return(
+                                <View style={{flexDirection:"row"}}>
+                                <Text style={{...FONTS.body3}} id={catId}>{getCategoryNameById(catId)}</Text>
+                                <Text style={{...FONTS.h3,color:COLORS.darkgray }}> . </Text>
+                                </View>
+                                )
+                            })
+                        }
+                        {
+                            [1,2,3].map((priceRating)=>(
+                                <Text key={priceRating}
+                                style={{
+                                    ...FONTS.body3,
+                                    color:(priceRating <= item.priceRating) ? COLORS.black : COLORS.darkgray
+                                }}
+                                >
+                                    $
+                                </Text>
+                            ))
+                        }
+                        </View>
+
+                    </View>
+                    
+                   
+
+                </TouchableOpacity>
+            )
         }
         return (
             <FlatList
-            data={restaurants}
-            renderItem={renderItem}
-            keyExtractor={item=>`${item.id}`}
-            contentContainerStyle={{
-                paddingHorizontal:SIZES.padding *2,
-                paddingBottom:20
-            }}
+                data={restaurants}
+                renderItem={renderItem}
+                keyExtractor={item => `${item.id}`}
+                contentContainerStyle={{
+                    paddingHorizontal: SIZES.padding * 2,
+                    paddingBottom: 20
+                }}
             />
         )
     }
