@@ -1,3 +1,4 @@
+import { NavigationContainer } from '@react-navigation/native'
 import React from 'react'
 import {
     View,
@@ -10,7 +11,7 @@ import {
 } from 'react-native'
 import { COLORS, icons, images, SIZES, FONTS } from '../constants'
 
-const Home = () => {
+const Home = ({navigation}) => {
 
     //DUMMY DATA
     const initialCurrentLocation = {
@@ -460,6 +461,10 @@ const Home = () => {
             return (
                 <TouchableOpacity
                     style={{ marginBottom: SIZES.padding * 2 }}
+                    onPress={()=> navigation.navigate('Resturant',{
+                        item,
+                        currentLocation
+                    }) }
                 >
                     <View>
                         <View>
